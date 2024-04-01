@@ -1,5 +1,5 @@
 import { ThemeProvider } from "./src/theme";
-
+import "./src/config/i18n";
 import { Routes } from "./src/routes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
