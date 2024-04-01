@@ -1,10 +1,14 @@
 import { ThemeProvider } from "./src/theme";
-import { Home } from "./src/screens/home";
+
+import { Routes } from "./src/routes";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
   return (
     <ThemeProvider>
-      <Home />
+      <SafeAreaProvider>
+        <Routes />
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
