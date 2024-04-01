@@ -1,5 +1,5 @@
-import { ThemeProvider } from "./src/theme/theme";
-import { Home } from "./src/screens/home/home";
+import { ThemeProvider } from "./src/theme";
+import { Home } from "./src/screens/home";
 
 export default function App() {
   return (
