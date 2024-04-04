@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
+import Logo from "@assets/logo.svg";
 import {
   Container,
   Title,
@@ -25,13 +25,7 @@ export const Login = () => {
     >
       <Container>
         <Header>
-          <Image
-            source={require("@assets/dice.png")}
-            style={{
-              width: 100,
-              height: 100
-            }}
-          />
+          <Logo width={150} height={150} />
         </Header>
         <Body>
           <Title>{t("loginText")}</Title>
