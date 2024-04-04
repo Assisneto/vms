@@ -1,5 +1,10 @@
 {
   "translation": {
-    "vms": "VMS br"
+    "loginText": "Faça login na sua conta",
+    "email": "Email",
+    "password": "Senha",
+    "signIn": "Entrar",
+    "signUp": "Cadastre-se",
+    "dontHaveAccount": "Não tem conta?"
   }
 }
