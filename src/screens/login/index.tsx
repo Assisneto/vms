@@ -26,7 +26,7 @@ export const Login = () => {
       <Container>
         <Header>
           <Image
-            source={require("../../../assets/dice.png")}
+            source={require("@assets/dice.png")}
             style={{
               width: 100,
               height: 100
