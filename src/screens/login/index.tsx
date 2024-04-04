@@ -9,11 +9,9 @@ import {
   Body,
   Input,
   InputContainer,
-  Button,
-  ButtonContainer,
   SubTitle,
-  SubTitleContainer,
-  ErrorText
+  ErrorText,
+  CustomButton
 } from "./styles";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
@@ -22,31 +20,42 @@ export const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const updateFormState = (newEmail: string, newPassword: string) => {
-    let isValid = true;
+    const validateEmail = (email: string) => {
+      if (!isValidEmail(email)) {
+        setEmailError(t("invalidEmail"));
+        return false;
+      } else {
+        setEmailError("");
+        return true;
+      }
+    };
 
-    if (!isValidEmail(newEmail)) {
-      setEmailError(t("invalidEmail"));
-      isValid = false;
-    } else {
-      setEmailError("");
-    }
-
-    if (newPassword.length === 0) {
-      setPasswordError(t("emptyPassword"));
-      isValid = false;
-    } else {
-      setPasswordError("");
-    }
+    const validatePassword = (password: string) => {
+      if (password.length === 0) {
+        setPasswordError(t("emptyPassword"));
+        return false;
+      } else {
+        setPasswordError("");
+        return true;
+      }
+    };
 
     setEmail(newEmail);
     setPassword(newPassword);
-    setIsFormValid(isValid);
+
+    validateEmail(newEmail);
+    validatePassword(newPassword);
   };
+
+  const isButtonDisabled =
+    emailError !== "" ||
+    passwordError !== "" ||
+    email === "" ||
+    password === "";
 
   return (
     <KeyboardAvoidingView
@@ -70,22 +79,20 @@ export const Login = () => {
               onChangeText={(text) => updateFormState(email, text)}
             />
             {passwordError ? <ErrorText>{passwordError}</ErrorText> : null}
-            <ButtonContainer>
-              <Button
-                onPress={() => console.log(email, password)}
-                disabled={!isFormValid}
-              >
-                <SubTitle>{t("signIn")}</SubTitle>
-              </Button>
-            </ButtonContainer>
+
+            <CustomButton
+              onPress={() => console.log(email, password)}
+              disabled={isButtonDisabled}
+            >
+              <SubTitle>{t("signIn")}</SubTitle>
+            </CustomButton>
           </InputContainer>
-          <SubTitleContainer>
-            <Button>
-              <SubTitle>
-                {t("dontHaveAccount")} {t("signUp")}
-              </SubTitle>
-            </Button>
-          </SubTitleContainer>
+
+          <CustomButton transparent>
+            <SubTitle>
+              {t("dontHaveAccount")} {t("signUp")}
+            </SubTitle>
+          </CustomButton>
         </Body>
       </Container>
     </KeyboardAvoidingView>

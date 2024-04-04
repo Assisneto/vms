@@ -1,5 +1,10 @@
+import { TouchableOpacityProps } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
+
+interface CustomButtonProps extends TouchableOpacityProps {
+  transparent?: boolean;
+}
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -26,18 +31,18 @@ export const InputContainer = styled.View`
   padding: 10px 0;
   justify-content: space-around;
 `;
-export const ButtonContainer = styled.View`
-  width: 100%;
-  height: 60px;
-  background-color: ${(props) => props.theme.colors.quaternary};
-  justify-content: center;
-  border-radius: 5px;
-  margin-top: 10px;
-`;
-export const Button = styled.TouchableOpacity`
+
+export const CustomButton = styled.TouchableOpacity<CustomButtonProps>`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  width: 100%;
+  height: 60px;
+  border-radius: 5px;
+  ${(props) =>
+    props.transparent === true
+      ? ""
+      : `background-color: ${props.theme.colors.quaternary}`};
 `;
 
 export const Input = styled.TextInput.attrs((props) => ({
@@ -61,10 +66,6 @@ export const SubTitleColored = styled.Text`
   color: ${(props) => props.theme.colors.quinary};
   font-size: 20px;
   font-weight: bold;
-`;
-
-export const SubTitleContainer = styled.View`
-  padding-top: 20px;
 `;
 
 export const ErrorText = styled.Text`
