@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import { ThemeProvider as ThemeProviderStyled } from "styled-components/native";
 import { mageTheme } from "./mageTheme";
 import { vampireTheme } from "./vampireTheme";
