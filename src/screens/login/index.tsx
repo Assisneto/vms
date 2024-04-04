@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logo from "@assets/logo.svg";
+import { isValidEmail } from "@utils/isValidEmail";
 import {
   Container,
   Title,
@@ -12,12 +13,41 @@ import {
   ButtonContainer,
   SubTitle,
   SubTitleContainer,
-  SubTitleColored
+  ErrorText
 } from "./styles";
-import { Image, KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 export const Login = () => {
   const { t } = useTranslation();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const updateFormState = (newEmail: string, newPassword: string) => {
+    let isValid = true;
+
+    if (!isValidEmail(newEmail)) {
+      setEmailError(t("invalidEmail"));
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (newPassword.length === 0) {
+      setPasswordError(t("emptyPassword"));
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    setEmail(newEmail);
+    setPassword(newPassword);
+    setIsFormValid(isValid);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -30,10 +60,21 @@ export const Login = () => {
         <Body>
           <Title>{t("loginText")}</Title>
           <InputContainer>
-            <Input placeholder={t("email")} />
-            <Input placeholder={t("password")} />
+            <Input
+              placeholder={t("email")}
+              onChangeText={(text) => updateFormState(text, password)}
+            />
+            {emailError ? <ErrorText>{emailError}</ErrorText> : null}
+            <Input
+              placeholder={t("password")}
+              onChangeText={(text) => updateFormState(email, text)}
+            />
+            {passwordError ? <ErrorText>{passwordError}</ErrorText> : null}
             <ButtonContainer>
-              <Button>
+              <Button
+                onPress={() => console.log(email, password)}
+                disabled={!isFormValid}
+              >
                 <SubTitle>{t("signIn")}</SubTitle>
               </Button>
             </ButtonContainer>

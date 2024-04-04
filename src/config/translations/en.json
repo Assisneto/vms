@@ -5,6 +5,8 @@
     "password": "Password",
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "dontHaveAccount": "Don't have account?"
+    "dontHaveAccount": "Don't have account?",
+    "invalidEmail": "Invalid email",
+    "emptyPassword": "Password cannot be empty"
   }
 }

@@ -5,6 +5,8 @@
     "password": "Senha",
     "signIn": "Entrar",
     "signUp": "Cadastre-se",
-    "dontHaveAccount": "Não tem conta?"
+    "dontHaveAccount": "Não tem conta?",
+    "invalidEmail": "Email inválido",
+    "emptyPassword": "Senha não pode ser vazia"
   }
 }

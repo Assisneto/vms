@@ -6,6 +6,6 @@ export const mageTheme: DefaultTheme = {
     secondary: "#D9BD32", // buttons
     tertiary: "#F2F2F2", // text
     quaternary: "#150326", // icon
-    quinary: "#0D0D0D" // Accent/Warning
+    quinary: "#D92B2B" // Accent/Warning
   }
 };

@@ -66,3 +66,8 @@ export const SubTitleColored = styled.Text`
 export const SubTitleContainer = styled.View`
   padding-top: 20px;
 `;
+
+export const ErrorText = styled.Text`
+  color: ${(props) => props.theme.colors.quinary};
+  font-size: 14px;
+`;
