@@ -90,13 +90,19 @@ export const Login = () => {
             <Input
               placeholder={t("email")}
               onChangeText={(text) => updateFormState(text, password)}
+              autoCapitalize="none"
             />
-            {emailError ? <ErrorText>{emailError}</ErrorText> : null}
+
+            {emailError ? <ErrorText>{emailError}</ErrorText> : <></>}
+
             <Input
               placeholder={t("password")}
               onChangeText={(text) => updateFormState(email, text)}
+              secureTextEntry={true}
+              autoCapitalize="none"
             />
-            {passwordError ? <ErrorText>{passwordError}</ErrorText> : null}
+
+            {passwordError ? <ErrorText>{passwordError}</ErrorText> : <></>}
 
             <CustomButton
               onPress={() => handleSignIn(email, password)}

@@ -10,8 +10,6 @@ export class AppError {
   }
 
   setError({ errors }: ErrorParam) {
-    console.log(errors);
-
     this.message = errors;
   }
 }
