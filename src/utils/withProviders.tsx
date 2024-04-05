@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { render } from "@testing-library/react-native";
 import { ThemeProvider } from "styled-components/native";
-import { themes } from "@contexts/theme";
+import { themes } from "@contexts/theme/ThemeContext";
 import { translations } from "@config/translations";
 import i18n from "i18next";
 import { I18nextProvider, initReactI18next } from "react-i18next";

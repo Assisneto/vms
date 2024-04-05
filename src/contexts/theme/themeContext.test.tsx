@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, act } from "@testing-library/react-native";
-import { ThemeProvider, ThemeContext, ThemeType, themes } from ".";
+import { ThemeProvider, ThemeContext, ThemeType, themes } from "./ThemeContext";
 import { TouchableOpacity, Text } from "react-native";
 
 describe("ThemeProvider", () => {
