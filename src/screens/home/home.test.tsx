@@ -1,16 +1,10 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
 import { Home } from "./index";
-import { ThemeProvider } from "styled-components/native";
-import { themes } from "../../theme";
+import { withProviders } from "@utils/withProviders";
 
 describe("<Home/>", () => {
   it("renders correctly", () => {
-    const { getByText } = render(
-      <ThemeProvider theme={themes.vampire}>
-        <Home />
-      </ThemeProvider>
-    );
-    expect(getByText("Vms")).toBeTruthy();
+    const { getByText } = withProviders(<Home />);
+    expect(getByText("vms")).toBeTruthy();
   });
 });
