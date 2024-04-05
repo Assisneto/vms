@@ -1,7 +1,14 @@
 import React, { useState } from "react";
+import { Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { useTranslation } from "react-i18next";
 import Logo from "@assets/logo.svg";
 import { isValidEmail } from "@utils/isValidEmail";
+
+import { useNavigation } from "@react-navigation/native";
+import { AppError } from "@utils/AppError";
+import { useAuth } from "@hooks/useAuth";
+import { routesName } from "@utils/routesName";
+
 import {
   Container,
   Title,
@@ -13,20 +20,16 @@ import {
   ErrorText,
   CustomButton
 } from "./styles";
-import { Alert, KeyboardAvoidingView, Platform } from "react-native";
-import { api } from "@services/api";
-import { AppError } from "@utils/AppError";
-import { useAuth } from "@hooks/useAuth";
 
 export const Login = () => {
   const { t } = useTranslation();
+  const { signIn, user } = useAuth();
+  const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const { signIn, user } = useAuth();
 
   const updateFormState = (newEmail: string, newPassword: string) => {
     const validateEmail = (email: string) => {
@@ -65,6 +68,7 @@ export const Login = () => {
   const handleSignIn = async (email: string, password: string) => {
     try {
       await signIn(email, password);
+      navigation.navigate(routesName.HOME);
     } catch (error) {
       const isAppError = error instanceof AppError;
 
