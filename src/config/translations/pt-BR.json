@@ -7,6 +7,8 @@
     "signUp": "Cadastre-se",
     "dontHaveAccount": "Não tem conta?",
     "invalidEmail": "Email inválido",
-    "emptyPassword": "Senha não pode ser vazia"
+    "emptyPassword": "Senha não pode ser vazia",
+    "userOrPasswordWrong": "Email e/ou senha incorretos",
+    "internalError": "Ocorreu algum problema. Tente novamente mais tarde."
   }
 }

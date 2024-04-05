@@ -13,7 +13,9 @@ import {
   ErrorText,
   CustomButton
 } from "./styles";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform } from "react-native";
+import { api } from "@services/api";
+import { AppError } from "@utils/AppError";
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -57,6 +59,19 @@ export const Login = () => {
     email === "" ||
     password === "";
 
+  const loginRequest = async (email: string, password: string) => {
+    try {
+      const user = await api.post("/api/user/login", { email, password });
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const errorMessage = isAppError
+        ? t("userOrPasswordWrong")
+        : t("internalError");
+      Alert.alert("", errorMessage);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -81,7 +96,7 @@ export const Login = () => {
             {passwordError ? <ErrorText>{passwordError}</ErrorText> : null}
 
             <CustomButton
-              onPress={() => console.log(email, password)}
+              onPress={() => loginRequest(email, password)}
               disabled={isButtonDisabled}
             >
               <SubTitle>{t("signIn")}</SubTitle>
