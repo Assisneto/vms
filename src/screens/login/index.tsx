@@ -16,6 +16,7 @@ import {
 import { Alert, KeyboardAvoidingView, Platform } from "react-native";
 import { api } from "@services/api";
 import { AppError } from "@utils/AppError";
+import { useAuth } from "@hooks/useAuth";
 
 export const Login = () => {
   const { t } = useTranslation();
@@ -24,6 +25,8 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const { signIn, user } = useAuth();
 
   const updateFormState = (newEmail: string, newPassword: string) => {
     const validateEmail = (email: string) => {
@@ -59,9 +62,9 @@ export const Login = () => {
     email === "" ||
     password === "";
 
-  const loginRequest = async (email: string, password: string) => {
+  const handleSignIn = async (email: string, password: string) => {
     try {
-      const user = await api.post("/api/user/login", { email, password });
+      await signIn(email, password);
     } catch (error) {
       const isAppError = error instanceof AppError;
 
@@ -96,14 +99,14 @@ export const Login = () => {
             {passwordError ? <ErrorText>{passwordError}</ErrorText> : null}
 
             <CustomButton
-              onPress={() => loginRequest(email, password)}
+              onPress={() => handleSignIn(email, password)}
               disabled={isButtonDisabled}
             >
               <SubTitle>{t("signIn")}</SubTitle>
             </CustomButton>
           </InputContainer>
 
-          <CustomButton transparent>
+          <CustomButton transparent onPress={() => console.log(user)}>
             <SubTitle>
               {t("dontHaveAccount")} {t("signUp")}
             </SubTitle>
