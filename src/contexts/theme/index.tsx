@@ -10,15 +10,20 @@ export enum ThemeType {
   werewolf = "werewolf"
 }
 
+export interface ThemeContextType {
+  theme: ThemeType;
+  setTheme: (theme: ThemeType) => void;
+}
+
 export const themes = {
   mage: mageTheme,
   vampire: vampireTheme,
   werewolf: werewolfTheme
 };
 
-export const ThemeContext = createContext({
-  theme: ThemeType.vampire
-});
+export const ThemeContext = createContext<ThemeContextType>(
+  {} as ThemeContextType
+);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children
@@ -26,7 +31,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<ThemeType>(ThemeType.mage);
 
   return (
-    <ThemeContext.Provider value={{ theme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <ThemeProviderStyled theme={themes[theme]}>
         {children}
       </ThemeProviderStyled>
