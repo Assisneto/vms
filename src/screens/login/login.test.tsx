@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react-native";
+import { fireEvent } from "@testing-library/react-native";
 import { Login } from ".";
 import { withProviders } from "@utils/withProviders";
 import { translation } from "@config/translations/en.json";
@@ -18,6 +18,7 @@ describe("<Login />", () => {
       getByText(`${translation.dontHaveAccount} ${translation.signUp}`)
     ).toBeTruthy();
   });
+
   it("updates email and password", () => {
     const { getByPlaceholderText, getByText, queryByText } = withProviders(
       <Login />
