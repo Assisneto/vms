@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 
-import { TabsContainer, Title } from "./styles";
+import { TabsContainer, TabsHeaderContainer, Title } from "./styles";
 import { Controller, UseFormReturn } from "react-hook-form";
-import { Field } from "@components/field";
+
 import { TouchableOpacity } from "react-native";
+import {
+  CharacteristicItem,
+  createDynamicKey,
+  KeyValueItem
+} from "@utils/createFormKey";
 
 interface Characteristic {
   id: string;
@@ -13,16 +18,31 @@ interface Characteristic {
   characteristic_name: string;
   category_name: string;
 }
-interface DataObject {
-  [category: string]: Characteristic[];
-}
 
-interface TabsProps {
-  data: DataObject;
-  combinedData: Characteristic[];
-  control: UseFormReturn["control"];
+interface TabsChildrenProps {
+  name: string;
+  value: number;
+  onChange: (level: number) => void;
 }
-export const Tabs: React.FC<TabsProps> = ({ data, combinedData, control }) => {
+type CombinedItem = CharacteristicItem | KeyValueItem;
+interface TabsProps<T extends CharacteristicItem | KeyValueItem> {
+  data: { [category: string]: T[] };
+  combinedData: T[]; // Change from CombinedItem[] to T[]
+  control: UseFormReturn["control"];
+  Component: React.FunctionComponent<TabsChildrenProps>;
+  headKeyField: keyof T;
+  tailKeyField: keyof T;
+  nameChildrenField: keyof T;
+}
+const Tabs = <T extends CharacteristicItem | KeyValueItem>({
+  data,
+  combinedData,
+  control,
+  Component,
+  headKeyField,
+  tailKeyField,
+  nameChildrenField
+}: TabsProps<T>) => {
   const [select, setSelect] = useState(0);
   const handler = (index: number): void => {
     console.log(index, Object.keys(data)[index]);
@@ -31,30 +51,32 @@ export const Tabs: React.FC<TabsProps> = ({ data, combinedData, control }) => {
   };
 
   return (
-    <>
-      <TabsContainer>
+    <TabsContainer>
+      <TabsHeaderContainer>
         {Object.keys(data).map((item, index) => (
           <TouchableOpacity key={item} onPress={() => handler(index)}>
             <Title>{item}</Title>
           </TouchableOpacity>
         ))}
-      </TabsContainer>
+      </TabsHeaderContainer>
       {combinedData.map((item) => {
         return item.category_name === Object.keys(data)[select] ? (
           <Controller
-            key={`${item.category_name}[${item.id}]`}
+            key={createDynamicKey(item, headKeyField, tailKeyField)}
             control={control}
-            name={`${item.category_name}[${item.id}]`}
+            name={createDynamicKey(item, headKeyField, tailKeyField)}
             render={({ field: { onChange, value, onBlur } }) => (
-              <Field
-                name={item.characteristic_name}
-                level={value}
+              <Component
+                name={item[nameChildrenField]}
+                value={value}
                 onChange={onChange}
               />
             )}
           />
         ) : null;
       })}
-    </>
+    </TabsContainer>
   );
 };
+
+export { Tabs, TabsChildrenProps };
