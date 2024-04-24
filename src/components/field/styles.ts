@@ -7,7 +7,7 @@ interface PointProps extends TouchableOpacityProps {
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
 `;
 

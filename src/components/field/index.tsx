@@ -1,15 +1,15 @@
 import React from "react";
 
 import { Container, Point, Title } from "./styles";
+import { TabsChildrenProps } from "@components/tabs";
 
-interface FieldProps {
-  name: string;
-  level: number;
-  onChange: (level: number) => void;
-}
-
-export const Field: React.FC<FieldProps> = ({ name, level, onChange }) => {
-  const filled = Array.from({ length: 5 }, (_, index) => {
+export const Field: React.FC<TabsChildrenProps> = ({
+  name,
+  onChange,
+  value: level
+}) => {
+  const lengthTotal = level > 5 ? level : 5;
+  const filled = Array.from({ length: lengthTotal }, (_, index) => {
     return (
       <Point
         key={`${index}`}
