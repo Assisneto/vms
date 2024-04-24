@@ -4,6 +4,14 @@ import { useTranslation } from "react-i18next";
 import { Tabs } from "@components/tabs";
 import { useForm, Controller } from "react-hook-form";
 import { TouchableOpacity } from "react-native";
+import { SheetHeader } from "@components/sheetHeader";
+import { Field } from "@components/field";
+import {
+  CharacteristicItem,
+  createFormKey,
+  KeyValueItem
+} from "@utils/createFormKey";
+
 const data = {
   physical: [
     {
@@ -332,18 +340,234 @@ const data2 = {
     }
   ]
 };
+
+const data3 = {
+  backgrounds: [
+    {
+      id: "e3a962af-f7fe-495d-8aed-4443e4f6a497",
+      level: 4,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Recursos",
+      category_name: "backgrounds"
+    },
+    {
+      id: "9ae0018f-f58a-4ed4-b3c3-f96b0baf844f",
+      level: 1,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Aliados",
+      category_name: "backgrounds"
+    },
+    {
+      id: "13a36a9b-d2a6-4ae0-8cbd-34df39418880",
+      level: 1,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "contatos",
+      category_name: "backgrounds"
+    },
+    {
+      id: "4b8b1a18-470b-44bc-883d-a728cff9d117",
+      level: 1,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Rebanho",
+      category_name: "backgrounds"
+    }
+  ],
+  virtues: [
+    {
+      id: "0ba4c80f-81cf-4049-99e4-e1957e3f8f06",
+      level: 3,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "conscience",
+      category_name: "virtues"
+    },
+    {
+      id: "a56dae9b-300c-4b3d-b69e-6848a66e269a",
+      level: 3,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "self_control",
+      category_name: "virtues"
+    },
+    {
+      id: "01e8f617-e30e-466a-a110-11ff9d73a64f",
+      level: 3,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "courage",
+      category_name: "virtues"
+    }
+  ],
+  disciplines: [
+    {
+      id: "a4db9773-877e-4248-a4d1-bcedb41cfde4",
+      level: 3,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Fortitude",
+      category_name: "disciplines"
+    },
+    {
+      id: "87e3c9bc-dee2-439d-8c22-3c1d5faead06",
+      level: 1,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Presenca",
+      category_name: "disciplines"
+    },
+    {
+      id: "ae974c0c-d6a3-4da0-8a9c-71d969ce7ded",
+      level: 1,
+      inserted_at: "2024-03-12T17:55:47Z",
+      updated_at: "2024-03-12T17:55:47Z",
+      characteristic_name: "Ofuscacao",
+      category_name: "disciplines"
+    }
+  ]
+};
+
+const data4 = {
+  flaws: [
+    {
+      id: "2cf5f12f-950d-4420-863c-dfcc1e6bb1a0",
+      level: 4,
+      inserted_at: "2024-04-18T00:13:54Z",
+      updated_at: "2024-04-18T00:13:54Z",
+      category_name: "flaws",
+      characteristic_name: "Inimigo"
+    }
+  ],
+  merits: [
+    {
+      id: "0245ef5a-f75e-46a8-852e-f36128dda542",
+      level: 1,
+      inserted_at: "2024-04-18T00:13:54Z",
+      updated_at: "2024-04-18T00:13:54Z",
+      category_name: "merits",
+      characteristic_name: "Bom senso"
+    },
+    {
+      id: "497e5c90-3ed1-4309-9ca2-11306e655f71",
+      level: 2,
+      inserted_at: "2024-04-18T00:13:54Z",
+      updated_at: "2024-04-18T00:13:54Z",
+      category_name: "merits",
+      characteristic_name: "Lider Nato"
+    }
+  ],
+  others: [
+    {
+      id: "9f7f0c95-eb46-4720-bb87-c1bf63b725b0",
+      level: 5,
+      inserted_at: "2024-04-18T00:13:54Z",
+      updated_at: "2024-04-18T00:13:54Z",
+      category_name: "others",
+      characteristic_name: "Humanity"
+    },
+    {
+      id: "148ddf70-7ba3-4319-9990-74ed0a95755b",
+      level: 10,
+      inserted_at: "2024-04-18T00:13:54Z",
+      updated_at: "2024-04-18T00:13:54Z",
+      category_name: "others",
+      characteristic_name: "Blood points"
+    }
+  ]
+};
+const data5 = {
+  first: [
+    {
+      id: "",
+      value: "Benimary",
+      key: "Name",
+      category_name: "first"
+    },
+    {
+      id: "76fbc14e-a3bc-4fe7-aaf6-63ccf90f46ec",
+      value: "Maycon",
+      key: "Jogador",
+      category_name: "first"
+    },
+    {
+      id: "b5246b48-a28c-49de-aebd-937cc46cec34",
+      value: "Noite escura",
+      key: "Chronicle",
+      category_name: "first"
+    }
+  ],
+  second: [
+    {
+      id: "fca6142b-79b9-4255-9df0-0e2dd77b5ed6",
+      value: "bon-vivant",
+      key: "Natureza",
+      category_name: "second"
+    },
+    {
+      id: "4fa658bc-e25b-458e-a974-c9970b062d1f",
+      value: "3",
+      key: "geracao",
+      category_name: "second"
+    },
+    {
+      id: "0456a1c1-0ff2-478b-a3a5-802420bcc82c",
+      value: "Masoquista",
+      key: "Comportamento",
+      category_name: "second"
+    }
+  ],
+  third: [
+    {
+      id: "e2a05a0d-9ec9-48ed-a219-9fb3d00b56a0",
+      value: "Brujah",
+      key: "Cla",
+      category_name: "third"
+    },
+    {
+      id: "2f71acb7-5dbf-4aaf-8e27-bd9b2f2cc145",
+      value: "Casa na arvore",
+      key: "Refugio",
+      category_name: "third"
+    },
+    {
+      id: "74e8f075-8751-44e7-9ce0-2d10e6a44c3b",
+      value: "Lutador",
+      key: "Conceito",
+      category_name: "third"
+    }
+  ]
+};
+
+type CombinedItem = CharacteristicItem | KeyValueItem;
+
 export const Home = () => {
   const { t } = useTranslation();
-  const allData = { ...data, ...data2 };
-  const combinedData = Object.values(allData).flat();
+  const allData = { ...data, ...data2, ...data3, ...data4 };
+  const characteristicData = Object.values(allData).flat();
+  const characteristicHeaderData = Object.values(data5).flat();
+  const alldata2 = [...characteristicData, ...characteristicHeaderData];
+  const characteristicDataWithFormKey = createFormKey(
+    characteristicData,
+    "category_name",
+    "id",
+    "level"
+  );
+  const headerCharacteristicDataWithFormKey = createFormKey(
+    characteristicHeaderData,
+    "key",
+    "value",
+    "value"
+  );
+  const combinedData = {
+    ...headerCharacteristicDataWithFormKey,
+    ...characteristicDataWithFormKey
+  };
+
   const { control, handleSubmit } = useForm({
-    defaultValues: combinedData.reduce(
-      (acc, item) => ({
-        ...acc,
-        [`${item.category_name}[${item.id}]`]: item.level
-      }),
-      {}
-    )
+    defaultValues: combinedData
   });
 
   const onSubmit = (data: any) => {
@@ -351,8 +575,51 @@ export const Home = () => {
   };
   return (
     <Container>
-      <Tabs data={data} combinedData={combinedData} control={control} />
-      <Tabs data={data2} combinedData={combinedData} control={control} />
+      <Tabs<KeyValueItem>
+        data={data5}
+        combinedData={characteristicHeaderData}
+        control={control}
+        Component={SheetHeader}
+        headKeyField={"key"}
+        tailKeyField={"value"}
+        nameChildrenField={"key"}
+      />
+      <Tabs<CharacteristicItem>
+        data={data}
+        combinedData={characteristicData}
+        control={control}
+        Component={Field}
+        headKeyField={"category_name"}
+        tailKeyField={"id"}
+        nameChildrenField={"characteristic_name"}
+      />
+      <Tabs
+        data={data2}
+        combinedData={characteristicData}
+        control={control}
+        Component={Field}
+        headKeyField={"category_name"}
+        tailKeyField={"id"}
+        nameChildrenField={"characteristic_name"}
+      />
+      <Tabs
+        data={data3}
+        combinedData={characteristicData}
+        control={control}
+        Component={Field}
+        headKeyField={"category_name"}
+        tailKeyField={"id"}
+        nameChildrenField={"characteristic_name"}
+      />
+      <Tabs
+        data={data4}
+        combinedData={characteristicData}
+        control={control}
+        Component={Field}
+        headKeyField={"category_name"}
+        tailKeyField={"id"}
+        nameChildrenField={"characteristic_name"}
+      />
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
         <Title>{t("vms")}</Title>
       </TouchableOpacity>
