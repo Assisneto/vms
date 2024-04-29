@@ -20,14 +20,15 @@ import {
   ErrorText,
   CustomButton
 } from "./styles";
+import { api } from "@services/api";
 
 export const Login = () => {
   const { t } = useTranslation();
   const { signIn, user } = useAuth();
   const navigation = useNavigation();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("n@n.com");
+  const [password, setPassword] = useState("Assis123");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
@@ -68,7 +69,11 @@ export const Login = () => {
   const handleSignIn = async (email: string, password: string) => {
     try {
       await signIn(email, password);
-      navigation.navigate(routesName.HOME);
+      const { data } = await api.get(
+        "/api/sheet/34b23c45-6a9b-4eae-afc8-c3f7e87c4eec"
+      );
+
+      navigation.navigate(routesName.HOME, { data });
     } catch (error) {
       const isAppError = error instanceof AppError;
 
