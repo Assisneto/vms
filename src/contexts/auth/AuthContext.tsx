@@ -25,6 +25,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const { data } = await api.post("/api/user/login", { email, password });
 
+      api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
       setUser(data);
     } catch (error) {
       throw error;
